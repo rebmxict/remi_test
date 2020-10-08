@@ -1,0 +1,12 @@
+.form-control-input {
+	width: 200px;
+}
+
+.full-width {
+	width: 1024px;
+    margin: auto;
+}
+
+.navbar {
+	border-bottom: 2px solid black;
+}

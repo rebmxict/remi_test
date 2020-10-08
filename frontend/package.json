@@ -34,6 +34,7 @@
 		"redux": "^4.0.1",
 		"redux-devtools-extension": "^2.13.7",
 		"redux-thunk": "^2.3.0",
-		"style-loader": "^0.23.1"
+		"style-loader": "^0.23.1",
+		"sweetalert": "^2.1.2"
 	}
 }

@@ -25,8 +25,11 @@ SECRET_KEY = 'hl*+orn)a$=!10x(48bp!^c00%dww5@lyxv4=q6oslu@9j=7el'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+]
 
+CORS_ORIGIN_ALLOW_ALL=True
 
 # Application definition
 
@@ -40,12 +43,18 @@ INSTALLED_APPS = [
     'rest_framework',
     'knox',
     'corsheaders',
-    'account'
+    'account',
+    'frontend'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -122,3 +131,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')

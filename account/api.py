@@ -6,6 +6,16 @@ from .tokens import account_activation_token
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 import json
 
+# Get User API
+class UserAPI(generics.RetrieveAPIView):
+
+	permission_classes = [permissions.IsAuthenticated]
+	serializer_class = UserSerializer
+
+	def get_object(self):
+		userData = UserSerializer(self.request.user, context=self.get_serializer_context()).data
+		return userData
+
 # Register API
 class RegisterAPI(generics.GenericAPIView):
 
@@ -41,15 +51,3 @@ class LoginAPI(generics.GenericAPIView):
 			'user': UserSerializer(user, context=self.get_serializer_context()).data,
 			'token': token
 		})
-
-
-# Get User API
-
-class UserAPI(generics.RetrieveAPIView):
-
-	permission_classes = [permissions.IsAuthenticated]
-	serializer_class = UserSerializer
-
-	def get_object(self):
-		userData = UserSerializer(self.request.user, context=self.get_serializer_context()).data
-		return userData
