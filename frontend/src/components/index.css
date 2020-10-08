@@ -10,3 +10,11 @@
 .navbar {
 	border-bottom: 2px solid black;
 }
+
+.card-block {
+	padding: 15px;
+}
+
+.movie-views {
+	margin-top: 25px;
+}
