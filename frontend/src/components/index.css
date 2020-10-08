@@ -18,3 +18,9 @@
 .movie-views {
 	margin-top: 25px;
 }
+
+.vote-panel {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}

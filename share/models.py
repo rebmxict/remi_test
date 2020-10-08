@@ -10,3 +10,10 @@ class Movie(models.Model):
 	like = models.IntegerField(default=0)
 	dislike = models.IntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True)
+
+class Vote(models.Model):
+	owner = models.ForeignKey(
+		User, related_name="vote", on_delete=models.CASCADE, null=True)
+	movie = models.ForeignKey(
+		Movie, related_name="vote", on_delete=models.CASCADE, null=True)
+	vote = models.IntegerField(default=0)

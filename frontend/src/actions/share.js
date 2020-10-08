@@ -34,6 +34,23 @@ export const shareMovie = ({ link, description }) => (dispatch, getState) => {
         });
 };
 
+export const voteMovie = ({ like, dislike, movie_id }) => (dispatch, getState) => {
+    // Request Body
+    const body = JSON.stringify({
+		like,
+		dislike,
+		movie_id
+    });
+
+    axios
+        .post("/api/share/vote", body, tokenConfig(getState))
+        .then(res => {
+			dispatch(loadMovie());
+        })
+        .catch(err => {
+        });
+};
+
 // Setup config with token - helper function
 export const tokenConfig = getState => {
     // Get token from state

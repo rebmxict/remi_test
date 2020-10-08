@@ -1,8 +1,8 @@
-from share.models import Movie
+from share.models import Movie, Vote
 from rest_framework import generics, permissions
 from rest_framework import status
 from rest_framework.response import Response
-from .serializers import MovieSerializer
+from .serializers import MovieSerializer, VoteSerializer
 from django.forms.models import model_to_dict
 from datetime import datetime
 
@@ -14,6 +14,12 @@ class ShareAPI(generics.GenericAPIView):
 		res_movies = []
 		for movie in movies:
 			elem_movie = model_to_dict(movie)
+			elem_movie["voted"] = 0
+			if not request.user.is_anonymous:
+				vote = Vote.objects.filter(owner=request.user, movie=movie).first()
+				if vote:
+					elem_movie["voted"] = vote.vote
+			elem_movie["shared_by"] = movie.owner.username
 			elem_movie["created_at"] = movie.created_at
 			res_movies.append(elem_movie)
 		return Response({
@@ -47,8 +53,21 @@ class ShareVoteAPI(generics.GenericAPIView):
 
 		data = request.data
 		movie = Movie.objects.filter(id=data["movie_id"])[0]
-		if movie:
+		vote = Vote.objects.filter(owner=request.user, movie=movie)
+		if not vote:
 			movie.like = movie.like + data["like"]
 			movie.dislike = movie.dislike + data["dislike"]
 			movie.save()
+			voted = 0
+			if data["like"]:
+				voted = 1
+			if data["dislike"]:
+				voted = -1
+			vote = Vote(
+				owner=request.user,
+				movie=movie,
+				vote=voted
+			)
+			vote.save()
+
 		return Response(status=status.HTTP_200_OK)
