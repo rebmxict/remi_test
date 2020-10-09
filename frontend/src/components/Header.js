@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
-import { login, register, logout, loadUser } from "../actions/auth";
+import { login, register, logout } from "../actions/auth";
 
 class Header extends Component {
 	state = {
@@ -23,7 +23,6 @@ class Header extends Component {
 	onChange = e => this.setState({ [e.target.name]: e.target.value });
 
 	componentDidMount() {
-		this.props.loadUser();
 	}
 
 	render() {
@@ -78,4 +77,4 @@ const mapStateToProps = state => ({
 	user: state.auth.user
 });
 
-export default connect(mapStateToProps, { login, register, logout, loadUser })(Header);
+export default connect(mapStateToProps, { login, register, logout })(Header);
