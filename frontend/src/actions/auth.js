@@ -3,7 +3,6 @@ import swal from 'sweetalert';
 
 import {
     USER_LOADED,
-	USER_LOADING,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
     REGISTER_SUCCESS,
@@ -12,12 +11,7 @@ import {
 } from "./types";
 
 // CHECK TOKEN & LOAD USER
-export const loadUser = () => (dispatch, getState) => {
-    // User Loading
-    dispatch({
-        type: USER_LOADING
-	});
-	
+export const loadUser = () => (dispatch, getState) => {	
     axios
         .get("/api/auth/user", tokenConfig(getState))
         .then(res => {
@@ -114,7 +108,7 @@ export const logout = () => (dispatch, getState) => {
 export const tokenConfig = getState => {
     // Get token from state
 	const token = getState().auth.token;
-
+    console.log(token);
     // Headers
     const config = {
         headers: {
