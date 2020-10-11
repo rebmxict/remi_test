@@ -8,8 +8,9 @@ import {
 export const loadMovie = () => (dispatch, getState) => {
     var headers = {};
     if (getState().auth.isAuthenticated) { headers = tokenConfig(getState); }
+    console.log(getState().auth.isAuthenticated, "=====");
     axios
-        .get("/api/share", headers)
+        .get("/api/share")
         .then(res => {
 			dispatch({
 				type: MOVIE_LOADED,
