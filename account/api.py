@@ -13,7 +13,10 @@ class UserAPI(generics.RetrieveAPIView):
 	serializer_class = UserSerializer
 
 	def get_object(self):
-		userData = UserSerializer(self.request.user, context=self.get_serializer_context()).data
+		if self.request.user:
+			userData = UserSerializer(self.request.user, context=self.get_serializer_context()).data
+		else:
+			userData = None
 		return userData
 
 # Register API
