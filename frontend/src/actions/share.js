@@ -6,8 +6,10 @@ import {
 
 // LOAD MOVIE
 export const loadMovie = () => (dispatch, getState) => {
+    var headers = {};
+    if (getState().auth.isAuthenticated) { headers = tokenConfig(getState); }
     axios
-        .get("/api/share", tokenConfig(getState))
+        .get("/api/share", headers)
         .then(res => {
 			dispatch({
 				type: MOVIE_LOADED,
