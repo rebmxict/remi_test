@@ -15,10 +15,10 @@ class ShareAPI(generics.GenericAPIView):
 		for movie in movies:
 			elem_movie = model_to_dict(movie)
 			elem_movie["voted"] = 0
-			if not request.user.is_anonymous:
-				vote = Vote.objects.filter(owner=request.user, movie=movie).first()
-				if vote:
-					elem_movie["voted"] = vote.vote
+			# if not request.user.is_anonymous:
+			# 	vote = Vote.objects.filter(owner=request.user, movie=movie).first()
+			# 	if vote:
+			# 		elem_movie["voted"] = vote.vote
 			elem_movie["shared_by"] = movie.owner.username
 			elem_movie["created_at"] = movie.created_at
 			res_movies.append(elem_movie)
