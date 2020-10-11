@@ -1,5 +1,6 @@
 import axios from "axios";
 import swal from 'sweetalert';
+import { loadMovie } from './share';
 
 import {
     USER_LOADED,
@@ -20,6 +21,7 @@ export const loadUser = () => (dispatch, getState) => {
                     type: USER_LOADED,
                     payload: res.data
                 });
+                dispatch(loadMovie());
             }
         })
         .catch(err => {
